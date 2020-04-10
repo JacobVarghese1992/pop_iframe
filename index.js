@@ -10,8 +10,6 @@ window.onload=function(){
 
 var pubKey = "Test";
 
-getPublicKey().then(value => { pubKey = value });
-
 const getPublicKey = async () => {
   const options = {
     name: 'RSASSA-PKCS1-v1_5',
@@ -30,3 +28,5 @@ const getPublicKey = async () => {
 
   return `${JSON.stringify(publicKey)}`;
 };
+
+getPublicKey().then(value => { pubKey = value });
