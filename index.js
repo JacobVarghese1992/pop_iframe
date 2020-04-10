@@ -1,13 +1,3 @@
-window.onload=function(){
-  function receiveMessage(e){
-    console.log('received message');
-    var origin = event.origin || event.originalEvent.origin; 
-    e.source.postMessage({'origin':origin,'message':pubKey},"*");
-  }
-
-	window.addEventListener('message',receiveMessage);
-}
-
 var pubKey = "Test";
 
 const getPublicKey = async () => {
@@ -29,4 +19,17 @@ const getPublicKey = async () => {
   return `${JSON.stringify(publicKey)}`;
 };
 
-getPublicKey().then(value => { pubKey = value });
+getPublicKey()
+.then(
+  value => 
+  { pubKey = value;
+    window.onload=function(){
+      function receiveMessage(e){
+        console.log('received message');
+        var origin = event.origin || event.originalEvent.origin; 
+        e.source.postMessage({'origin':origin,'message':pubKey},"*");
+      }
+
+      window.addEventListener('message',receiveMessage);
+    } 
+  });
